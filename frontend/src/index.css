@@ -1,0 +1,59 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5.5rem;
+  }
+
+  body {
+    @apply bg-over-night font-sans text-white antialiased;
+  }
+
+  ::selection {
+    background: #ffcc00;
+    color: #111111;
+  }
+}
+
+@layer components {
+  .site-wrap {
+    @apply mx-auto w-full max-w-site px-5 md:px-8;
+  }
+
+  .section-pad {
+    @apply py-20 md:py-28;
+  }
+
+  .over-btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-over-yellow px-6 py-3 font-display text-sm font-semibold tracking-wide text-over-ink transition hover:bg-over-yellow-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-over-yellow disabled:opacity-60;
+  }
+
+  .over-btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-white/20 bg-white/5 px-6 py-3 font-display text-sm font-semibold tracking-wide text-white backdrop-blur-sm transition hover:border-over-yellow hover:text-over-yellow focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-over-yellow;
+  }
+
+  .over-card {
+    @apply rounded-card border border-white/10 bg-white/5 shadow-[0_20px_50px_rgba(0,0,0,0.25)];
+  }
+
+  .group:hover .group-hover\:pause {
+    animation-play-state: paused;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

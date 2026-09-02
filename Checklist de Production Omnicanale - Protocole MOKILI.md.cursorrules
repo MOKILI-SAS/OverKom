@@ -1,0 +1,31 @@
+Checklist de Production Omnicanale : Protocole MOKILI
+INSTRUCTIONS STRICTES POUR L'AGENT 
+Ton rôle est d'auditer le code en te basant sur les critères ci-dessous. Tu dois effectuer un audit en lecture seule. Pour chaque point, fournis un statut clair (Conforme, Non conforme, À vérifier manuellement sur l'hébergeur) et cite le fichier/la ligne prouvant ton analyse. Ne valide aucune étape si les critères de sécurité et de typage ne sont pas respectés.
+
+1. Gestion des Secrets, CI/CD et Environnement (Agnostique)
+Étanchéité du Git : Vérifier que .env, .env.local, et .env.* sont bien dans le .gitignore. Scanner les fichiers récents pour s'assurer qu'aucun jeton d'API, clé de sécurité ou mot de passe n'est écrit en dur dans le code source.
+
+Séparation des variables : Confirmer que seules les variables strictement nécessaires à l'UI utilisent le préfixe NEXT_PUBLIC_ (ou équivalent selon le bundler). Signaler immédiatement toute clé privée (BDD, API externes) exposée avec ce préfixe.
+
+Alerte Hébergeur / CI/CD (Rappel Agent) : L'agent doit générer un avertissement textuel : "Vérifier que les variables d'environnement de production sont correctement injectées dans le tableau de bord de l'hébergeur (Vercel, Netlify, Cloudflare, Hostinger) ou dans le gestionnaire de secrets (ex: GitHub Actions) avant le build final."
+
+2. Rigueur TypeScript, Sécurité et Audit
+Validation Zod / Schémas : Vérifier que toutes les Server Actions et routes d'API valident les données entrantes avec un schéma strict avant toute interaction avec la logique métier. Ne pas accepter de validation uniquement basée sur les formulaires HTML.
+
+Sécurisation des Mutations (Stratégie Bêta vs Publique) : Pour chaque Server Action Next.js modifiant des données, vérifier la présence d'un contrôle d'authentification. Lors de la phase bêta, le contrôle d'identité est maintenu minimal pour simplifier l'expérience utilisateur. Cependant, l'architecture doit prévoir les vérifications strictes (anti-fraude, conformité RGPD) pour la future version grand public.
+
+Audits Internes : Le code doit faciliter les audits internes réguliers visant à détecter et atténuer les vulnérabilités à long terme. Les blocs catch des requêtes sensibles ne doivent jamais renvoyer l'erreur brute (logs SQL, stack trace) au client, mais un message d'erreur générique.
+
+3. UI, UX et Conversion (Tailwind CSS & DaisyUI)
+Audit Mobile-First textuel : Analyser les classes Tailwind pour vérifier que l'architecture des grilles et des flexbox est pensée pour mobile (w-full, flex-col) avant d'appliquer des points de rupture (md:flex-row, etc.).
+
+Z-Index et Composants DaisyUI : Vérifier que les composants flottants de DaisyUI (navbars, modals, drawers) n'ont pas de conflits de superposition qui bloqueraient les boutons d'appel à l'action principaux.
+
+Optimisation Next/Image : Scanner l'utilisation des balises <img> classiques et exiger leur remplacement par next/image avec les attributs alt complétés, afin de garantir les performances de chargement.
+
+4. SEO Technique et Architecture (App Router Next.js)
+API Metadata : Vérifier que les fichiers layout.tsx et page.tsx majeurs exportent l'objet metadata (titre, description) plutôt que d'utiliser des balises <title> écrites en dur.
+
+Social Graph : Confirmer la présence des éléments Open Graph (ex: opengraph-image.tsx) pour assurer un affichage optimal lors des partages sur les réseaux sociaux.
+
+Routage et Maillage interne : Vérifier que la navigation utilise le composant <Link> de Next.js pour le prefetching, et s'assurer que robots.txt et sitemap.ts sont correctement générés.

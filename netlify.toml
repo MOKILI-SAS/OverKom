@@ -1,0 +1,33 @@
+[build]
+  command = "npm run build -w frontend"
+  publish = "frontend/dist"
+
+[build.environment]
+  NODE_VERSION = "20"
+  NPM_FLAGS = "--legacy-peer-deps"
+
+[functions]
+  directory = "netlify/functions"
+
+[[redirects]]
+  from = "/api/admin/*"
+  to = "/.netlify/functions/admin/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/leads"
+  to = "/.netlify/functions/leads"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/health"
+  to = "/.netlify/functions/health"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

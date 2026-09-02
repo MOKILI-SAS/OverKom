@@ -1,0 +1,4 @@
+/api/admin/*  /.netlify/functions/admin/:splat  200
+/api/leads  /.netlify/functions/leads  200
+/api/health  /.netlify/functions/health  200
+/*    /index.html   200

@@ -1,0 +1,22 @@
+node_modules
+dist
+dist-ssr
+.env
+.env.local
+*.log
+.DS_Store
+Thumbs.db
+backend/data
+*.local
+frontend/src/assets/preview-*.png
+.vscode
+.idea
+.netlify
+
+# Media & Zips
+*.mp4
+*.MP4
+*.mov
+*.MOV
+*.zip
+
