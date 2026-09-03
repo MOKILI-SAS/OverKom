@@ -62,21 +62,26 @@ export async function handler(event) {
       body = JSON.parse(event.body || '{}')
     } catch {}
 
-    if (body.password === ADMIN_PASSWORD) {
+    const email = body.email || ''
+    const password = body.password || ''
+    const validEmail = !email || email.toLowerCase().trim() === 'admin@overkom.com'
+    const validPassword = password === ADMIN_PASSWORD
+
+    if (validEmail && validPassword) {
       return {
         statusCode: 200,
         headers,
         body: JSON.stringify({
           ok: true,
           token: ADMIN_TOKEN_SECRET,
-          user: { role: 'admin', name: 'Administrateur OverKom' },
+          user: { role: 'admin', name: 'Administrateur OverKom', email: 'admin@overkom.com' },
         }),
       }
     }
     return {
       statusCode: 401,
       headers,
-      body: JSON.stringify({ ok: false, message: 'Mot de passe administrateur incorrect.' }),
+      body: JSON.stringify({ ok: false, message: 'Identifiants incorrects.' }),
     }
   }
 
