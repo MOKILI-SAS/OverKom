@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 import { ArrowDownRight } from 'lucide-react'
 import { stats } from '@/content/stats'
@@ -9,17 +10,31 @@ import { useContentStore } from '@/store/useContentStore'
 export function Hero() {
   const reduce = useReducedMotion()
   const hero = useContentStore((s) => s.content.hero)
+  const videoRef = useRef<HTMLVideoElement>(null)
+
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.play().catch(() => {
+        // Autoplay policy fallback: re-ensure muted and play
+        if (videoRef.current) {
+          videoRef.current.muted = true
+          videoRef.current.play().catch(() => {})
+        }
+      })
+    }
+  }, [])
 
   return (
     <section id="accueil" className="relative isolate min-h-screen overflow-hidden">
       <video
+        ref={videoRef}
         autoPlay
         loop
         muted
         playsInline
+        preload="auto"
         className="absolute inset-0 h-full w-full object-cover object-center bg-black"
       >
-        {/* Assurez-vous que le fichier video se trouve bien dans public/videos/hero-loop.mp4 */}
         <source src="/videos/hero-loop.mp4" type="video/mp4" />
       </video>
       <div className="absolute inset-0 bg-gradient-to-t from-over-night via-over-night/65 to-black/40" />

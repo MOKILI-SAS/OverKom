@@ -13,10 +13,12 @@ frontend/src/assets/preview-*.png
 .idea
 .netlify
 
-# Media & Zips
-*.mp4
-*.MP4
-*.mov
-*.MOV
-*.zip
+# Media & Zips at root
+/*.mp4
+/*.MP4
+/*.mov
+/*.MOV
+/*.zip
+!frontend/public/videos/hero-loop.mp4
+
 
