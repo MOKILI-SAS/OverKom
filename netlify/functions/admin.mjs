@@ -154,13 +154,23 @@ export async function handler(event) {
   }
 
   // 5. DELETE /leads/:id
-  if (event.httpMethod === 'DELETE') {
+  if (event.httpMethod === 'DELETE' && path.includes('/leads/')) {
     const id = path.split('/').pop()
     inMemoryLeads = inMemoryLeads.filter((l) => l.id !== id)
     return {
       statusCode: 200,
       headers,
       body: JSON.stringify({ ok: true, message: 'Prospect supprimé.' }),
+    }
+  }
+
+  // 6. PUT /content
+  if (event.httpMethod === 'PUT' && path.endsWith('/content')) {
+    // In serverless mode, we just return ok so the frontend handles it via localStorage
+    return {
+      statusCode: 200,
+      headers,
+      body: JSON.stringify({ ok: true, message: 'Contenu sauvegardé localement.' }),
     }
   }
 
