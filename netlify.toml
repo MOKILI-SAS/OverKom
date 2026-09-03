@@ -1,5 +1,5 @@
 [build]
-  command = "npm run build -w frontend"
+  command = "npm run build"
   publish = "frontend/dist"
 
 [build.environment]
@@ -10,26 +10,8 @@
   directory = "netlify/functions"
 
 [[redirects]]
-  from = "/api/admin/*"
-  to = "/.netlify/functions/admin/:splat"
-  status = 200
-  force = true
-
-[[redirects]]
-  from = "/api/leads"
-  to = "/.netlify/functions/leads"
-  status = 200
-  force = true
-
-[[redirects]]
-  from = "/api/health"
-  to = "/.netlify/functions/health"
-  status = 200
-  force = true
-
-[[redirects]]
-  from = "/api/content"
-  to = "/.netlify/functions/content"
+  from = "/api/*"
+  to = "/.netlify/functions/api/:splat"
   status = 200
   force = true
 

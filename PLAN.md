@@ -17,7 +17,7 @@ Plan de migration progressive par lots pour aligner le projet OverKom 360 avec l
 - **Objectif :** Unifier la gestion des leads, sécuriser l'API et supprimer les duplications entre Express et Serverless.
 - **Fichiers concernés :** `backend/src/index.ts`, `netlify/functions/*.mjs`, `frontend/src/content/site.ts`.
 - **Risques :** Moyen (tests d'API requis).
-- **Statut :** `IN_PROGRESS`
+- **Statut :** `COMPLETED`
 
 ---
 
@@ -25,7 +25,7 @@ Plan de migration progressive par lots pour aligner le projet OverKom 360 avec l
 - **Objectif :** Vérifier la fluidité des carrousels (Équipe, Partenaires, Médiathèque), l'optimisation des images/vidéos et l'accessibilité.
 - **Fichiers concernés :** `frontend/src/sections/*`, `frontend/src/content/site.ts`.
 - **Risques :** Faible (maintien de l'UX existante).
-- **Statut :** `PLANNED`
+- **Statut :** `COMPLETED`
 
 ---
 
