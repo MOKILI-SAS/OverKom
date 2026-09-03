@@ -1,6 +1,5 @@
 import { motion, useReducedMotion } from 'framer-motion'
 import { ArrowDownRight } from 'lucide-react'
-import poster from '@/assets/hero/poster.jpg'
 import { stats } from '@/content/stats'
 import { fadeUp, stagger } from '@/lib/motion'
 import { getWhatsAppLink } from '@/content/site'
@@ -18,15 +17,10 @@ export function Hero() {
         loop
         muted
         playsInline
-        poster={poster}
-        className="absolute inset-0 h-full w-full object-cover object-center"
+        className="absolute inset-0 h-full w-full object-cover object-center bg-black"
       >
+        {/* Assurez-vous que le fichier video se trouve bien dans public/videos/hero-loop.mp4 */}
         <source src="/videos/hero-loop.mp4" type="video/mp4" />
-        <img
-          src={poster}
-          alt="L’équipe OverKom 360 en tournage à Conakry"
-          className="h-full w-full object-cover object-center"
-        />
       </video>
       <div className="absolute inset-0 bg-gradient-to-t from-over-night via-over-night/65 to-black/40" />
 
