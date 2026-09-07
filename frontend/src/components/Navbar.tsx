@@ -32,13 +32,13 @@ export function Navbar() {
 
         <nav className="hidden items-center gap-7 lg:flex">
           {navLinks.map((link) => (
-            <a
+            <Link
               key={link.href}
-              href={link.href}
+              to={link.href}
               className="font-display text-sm font-medium text-white/80 transition hover:text-over-yellow"
             >
               {link.label}
-            </a>
+            </Link>
           ))}
         </nav>
 
@@ -65,14 +65,14 @@ export function Navbar() {
         <div className="border-t border-white/10 bg-over-night px-5 py-6 lg:hidden">
           <nav className="flex flex-col gap-4">
             {navLinks.map((link) => (
-              <a
+              <Link
                 key={link.href}
-                href={link.href}
+                to={link.href}
                 className="font-display text-lg text-white"
                 onClick={() => setMobileNavOpen(false)}
               >
                 {link.label}
-              </a>
+              </Link>
             ))}
             <NavLink to="/mentions-legales" className="text-sm text-over-muted" onClick={() => setMobileNavOpen(false)}>
               Mentions légales

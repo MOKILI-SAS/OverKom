@@ -35,9 +35,9 @@ export function Footer() {
           <ul className="space-y-2 text-sm text-white/75">
             {navLinks.map((link) => (
               <li key={link.href}>
-                <a href={link.href} className="hover:text-over-yellow">
+                <Link to={link.href} className="hover:text-over-yellow">
                   {link.label}
-                </a>
+                </Link>
               </li>
             ))}
             <li>
