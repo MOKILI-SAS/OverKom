@@ -31,7 +31,6 @@ export const site: SiteConfig = {
 export const navLinks = [
   { href: '/#services', label: 'Services' },
   { href: '/portfolio', label: 'Portfolio' },
-  { href: '/#realisations', label: 'Réalisations' },
   { href: '/#partenaires', label: 'Partenaires' },
   { href: '/#equipe', label: 'Équipe' },
   { href: '/#apropos', label: 'À propos' },

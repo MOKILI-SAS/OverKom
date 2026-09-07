@@ -100,7 +100,6 @@ export function CmsEditor() {
         {[
           { id: 'hero', label: 'Hero & Infos', icon: Globe },
           { id: 'services', label: 'Services', icon: Layers },
-          { id: 'projects', label: 'Réalisations', icon: Briefcase },
           { id: 'team', label: 'Équipe', icon: User },
           { id: 'partners', label: 'Partenaires', icon: Image },
           { id: 'portfolio', label: 'Portfolio', icon: Video },
@@ -248,63 +247,7 @@ export function CmsEditor() {
         </div>
       )}
 
-      {/* TAB 3: PROJECTS */}
-      {activeTab === 'projects' && (
-        <div className="space-y-4">
-          <div className="flex justify-between items-center">
-            <h3 className="font-display font-bold text-lg text-white">Réalisations & Projets ({content.projects.length})</h3>
-            <button
-              onClick={() =>
-                setEditingProject({
-                  id: `proj-${Date.now()}`,
-                  title: 'Nouveau Projet',
-                  client: 'Nom du Client',
-                  category: 'audiovisuel',
-                  year: new Date().getFullYear(),
-                  summary: 'Résumé de la réalisation...',
-                  image: '/images/shoot/DSC055453832.jpg.jpeg',
-                  tags: ['Campagne 360°'],
-                })
-              }
-              type="button"
-              className="flex items-center gap-2 rounded-btn bg-over-yellow px-4 py-2 text-xs font-bold text-over-night hover:bg-yellow-400"
-            >
-              <Plus className="h-4 w-4" /> Ajouter une Réalisation
-            </button>
-          </div>
 
-          <div className="grid gap-4 md:grid-cols-2">
-            {content.projects.map((proj) => (
-              <div key={proj.id} className="rounded-card bg-over-charcoal/60 p-4 border border-white/10 flex gap-4">
-                <img src={proj.image} alt={proj.title} className="h-24 w-24 object-cover rounded-btn bg-black/50 shrink-0" />
-                <div className="flex-1 flex flex-col justify-between">
-                  <div>
-                    <span className="text-[10px] font-mono text-over-yellow">{proj.client} • {proj.year}</span>
-                    <h4 className="font-display font-bold text-white text-sm line-clamp-1">{proj.title}</h4>
-                    <p className="text-xs text-gray-300 line-clamp-2 mt-1">{proj.summary}</p>
-                  </div>
-                  <div className="flex gap-2 mt-2">
-                    <button
-                      onClick={() => setEditingProject(proj)}
-                      type="button"
-                      className="flex items-center gap-1 rounded bg-white/10 px-2.5 py-1 text-xs text-white hover:bg-white/20"
-                    >
-                      <Edit2 className="h-3 w-3" /> Éditer
-                    </button>
-                    <button
-                      onClick={() => deleteProject(proj.id)}
-                      type="button"
-                      className="flex items-center rounded bg-rose-500/20 px-2 py-1 text-xs text-rose-300 hover:bg-rose-500/30"
-                    >
-                      <Trash2 className="h-3 w-3" />
-                    </button>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
 
       {/* TAB 4: TEAM */}
       {activeTab === 'team' && (

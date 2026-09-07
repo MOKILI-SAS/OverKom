@@ -12,10 +12,36 @@ export interface HeroConfig {
 }
 
 export const defaultPortfolio: PortfolioItem[] = [
-  { id: 'port-1', title: 'Tournage Équipe OverKom', category: 'photoshoot', mediaUrl: '/images/shoot/DSC055453832.jpg.jpeg' },
-  { id: 'port-2', title: 'Production Audiovisuelle', category: 'photoshoot', mediaUrl: '/images/shoot/DSC055483834.jpg.jpeg' },
-  { id: 'port-3', title: 'Affiche BSIC', category: 'graphisme', mediaUrl: '/portfolio/graphisme/BSIC 21.jpg.jpeg' },
-  { id: 'port-4', title: 'Spot Facebook (Exemple)', category: 'video', mediaUrl: 'https://www.facebook.com/plugins/video.php?height=476&href=https%3A%2F%2Fwww.facebook.com%2Fshare%2Fr%2F1cQ7tckg73%2F%3Fmibextid%3DwwXIfr&show_text=false&width=267' },
+  // VIDEOS
+  { id: 'port-v1', title: 'Vidéo OverKom 1', category: 'video', mediaUrl: 'https://www.facebook.com/share/r/1cQ7tckg73/?mibextid=wwXIfr' },
+  { id: 'port-v2', title: 'Vidéo OverKom 2', category: 'video', mediaUrl: 'https://www.facebook.com/share/r/1CC8XnsRcf/?mibextid=wwXIfr' },
+  { id: 'port-v3', title: 'Vidéo OverKom 3', category: 'video', mediaUrl: 'https://www.facebook.com/share/v/1Dx7Kjxiyt/?mibextid=wwXIfr' },
+  { id: 'port-v4', title: 'Vidéo OverKom 4', category: 'video', mediaUrl: 'https://www.facebook.com/share/v/1Bvo4UCtwn/?mibextid=wwXIfr' },
+
+  // GRAPHISME
+  { id: 'port-g1', title: 'Affiche BSIC', category: 'graphisme', mediaUrl: '/portfolio/graphisme/BSIC 21.jpg.jpeg' },
+  { id: 'port-g2', title: 'Création Graphique', category: 'graphisme', mediaUrl: '/portfolio/graphisme/IMG_7847.JPG.jpeg' },
+  { id: 'port-g3', title: 'Création Graphique', category: 'graphisme', mediaUrl: '/portfolio/graphisme/IMG_7848.JPG.jpeg' },
+  { id: 'port-g4', title: 'Création Graphique', category: 'graphisme', mediaUrl: '/portfolio/graphisme/IMG_7850.JPG.jpeg' },
+  { id: 'port-g5', title: 'Création Graphique', category: 'graphisme', mediaUrl: '/portfolio/graphisme/IMG_7851.JPG.jpeg' },
+  { id: 'port-g6', title: 'Création Graphique', category: 'graphisme', mediaUrl: '/portfolio/graphisme/IMG_7852.JPG.jpeg' },
+  { id: 'port-g7', title: 'Création Graphique', category: 'graphisme', mediaUrl: '/portfolio/graphisme/IMG_7853.JPG.jpeg' },
+  { id: 'port-g8', title: 'Création Graphique', category: 'graphisme', mediaUrl: '/portfolio/graphisme/IMG_7854.JPG.jpeg' },
+  { id: 'port-g9', title: 'Création Graphique', category: 'graphisme', mediaUrl: '/portfolio/graphisme/IMG_7855.JPG.jpeg' },
+  { id: 'port-g10', title: 'Création Graphique', category: 'graphisme', mediaUrl: '/portfolio/graphisme/IMG_7856.JPG.jpeg' },
+  { id: 'port-g11', title: 'Création Graphique', category: 'graphisme', mediaUrl: '/portfolio/graphisme/IMG_7857.JPG.jpeg' },
+  { id: 'port-g12', title: 'Création Graphique', category: 'graphisme', mediaUrl: '/portfolio/graphisme/IMG_7858.JPG.jpeg' },
+
+  // PHOTOSHOOT
+  { id: 'port-p1', title: 'Shooting Studio', category: 'photoshoot', mediaUrl: '/portfolio/photoshoot/DSC02373 copie.jpg.jpeg' },
+  { id: 'port-p2', title: 'Tournage Équipe', category: 'photoshoot', mediaUrl: '/portfolio/photoshoot/DSC055453832.jpg.jpeg' },
+  { id: 'port-p3', title: 'Couverture Événementielle', category: 'photoshoot', mediaUrl: '/portfolio/photoshoot/DSC06778 copie 1.jpg.jpeg' },
+  { id: 'port-p4', title: 'Shooting Terrain', category: 'photoshoot', mediaUrl: '/portfolio/photoshoot/DSC097041.jpg.jpeg' },
+  { id: 'port-p5', title: 'Direction Artistique', category: 'photoshoot', mediaUrl: '/portfolio/photoshoot/DSC_3677 copie.jpg.jpeg' },
+  { id: 'port-p6', title: 'Direction Artistique', category: 'photoshoot', mediaUrl: '/portfolio/photoshoot/DSC_3684 copie.jpg.jpeg' },
+  { id: 'port-p7', title: 'Studio Podcast', category: 'photoshoot', mediaUrl: '/portfolio/photoshoot/DSC_8051 copie.jpg.jpeg' },
+  { id: 'port-p8', title: 'Studio Podcast', category: 'photoshoot', mediaUrl: '/portfolio/photoshoot/DSC_8059 copie.jpg.jpeg' },
+  { id: 'port-p9', title: 'Studio Podcast', category: 'photoshoot', mediaUrl: '/portfolio/photoshoot/DSC_8077 copie.jpg.jpeg' },
 ]
 
 export const defaultHero: HeroConfig = {
@@ -72,7 +98,7 @@ interface ContentStoreState {
   deletePortfolioItem: (id: string) => void
 }
 
-const LOCAL_STORAGE_KEY = 'overkom_cms_content_v1'
+const LOCAL_STORAGE_KEY = 'overkom_cms_content_v2'
 
 const initialContent: CmsContent = {
   site: defaultSite,
