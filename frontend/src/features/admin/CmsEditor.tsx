@@ -1,8 +1,8 @@
 import { useState } from 'react'
-import { Plus, Trash2, Edit2, Save, RefreshCw, CheckCircle, Image, User, Briefcase, Globe, Layers, Video } from 'lucide-react'
+import { Plus, Trash2, Edit2, Save, RefreshCw, CheckCircle, Image, User, Globe, Layers, Video } from 'lucide-react'
 import { useContentStore } from '@/store/useContentStore'
 import { useAdminStore } from '@/features/admin/useAdminStore'
-import type { Service, TeamMember, Project, Partner, PortfolioItem, PortfolioCategory } from '@/types'
+import type { Service, TeamMember, Partner, PortfolioItem, PortfolioCategory } from '@/types'
 
 export function CmsEditor() {
   const token = useAdminStore((s) => s.token)
@@ -17,9 +17,6 @@ export function CmsEditor() {
     addService,
     updateService,
     deleteService,
-    addProject,
-    updateProject,
-    deleteProject,
     addTeamMember,
     updateTeamMember,
     deleteTeamMember,
@@ -36,7 +33,6 @@ export function CmsEditor() {
 
   // Editing modals & forms state
   const [editingService, setEditingService] = useState<Service | null>(null)
-  const [editingProject, setEditingProject] = useState<Project | null>(null)
   const [editingTeam, setEditingTeam] = useState<TeamMember | null>(null)
   const [editingPartner, setEditingPartner] = useState<Partner | null>(null)
   const [editingMedia, setEditingMedia] = useState<PortfolioItem | null>(null)
@@ -463,56 +459,7 @@ export function CmsEditor() {
         </div>
       )}
 
-      {/* EDIT MODAL: PROJECT */}
-      {editingProject && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4">
-          <div className="w-full max-w-lg rounded-card bg-over-charcoal p-6 border border-white/10 space-y-4">
-            <h3 className="font-display font-bold text-lg text-white">Éditer la Réalisation</h3>
-            <input
-              type="text"
-              placeholder="Titre du Projet"
-              value={editingProject.title}
-              onChange={(e) => setEditingProject({ ...editingProject, title: e.target.value })}
-              className="w-full rounded bg-black/40 border border-white/10 px-3 py-2 text-sm text-white"
-            />
-            <input
-              type="text"
-              placeholder="Nom du Client"
-              value={editingProject.client}
-              onChange={(e) => setEditingProject({ ...editingProject, client: e.target.value })}
-              className="w-full rounded bg-black/40 border border-white/10 px-3 py-2 text-sm text-white"
-            />
-            <input
-              type="text"
-              placeholder="URL de l'image"
-              value={editingProject.image}
-              onChange={(e) => setEditingProject({ ...editingProject, image: e.target.value })}
-              className="w-full rounded bg-black/40 border border-white/10 px-3 py-2 text-sm text-white"
-            />
-            <textarea
-              placeholder="Résumé"
-              rows={2}
-              value={editingProject.summary}
-              onChange={(e) => setEditingProject({ ...editingProject, summary: e.target.value })}
-              className="w-full rounded bg-black/40 border border-white/10 px-3 py-2 text-sm text-white"
-            />
-            <div className="flex justify-end gap-3 pt-2">
-              <button onClick={() => setEditingProject(null)} className="rounded px-4 py-2 text-xs text-gray-300 bg-white/10">Annuler</button>
-              <button
-                onClick={() => {
-                  const exists = content.projects.some((p) => p.id === editingProject.id)
-                  if (exists) updateProject(editingProject.id, editingProject)
-                  else addProject(editingProject)
-                  setEditingProject(null)
-                }}
-                className="rounded px-4 py-2 text-xs font-bold text-over-night bg-over-yellow"
-              >
-                Sauvegarder
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+
 
       {/* EDIT MODAL: TEAM */}
       {editingTeam && (
