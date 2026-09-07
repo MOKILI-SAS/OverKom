@@ -4,6 +4,7 @@ import { ProtectedRoute } from '@/features/admin/ProtectedRoute'
 import { AdminDashboardPage } from '@/pages/admin/AdminDashboardPage'
 import { AdminLoginPage } from '@/pages/admin/AdminLoginPage'
 import { HomePage } from '@/pages/HomePage'
+import { PortfolioPage } from '@/pages/PortfolioPage'
 import { LegalPage } from '@/pages/LegalPage'
 
 export function AppRouter() {
@@ -13,6 +14,7 @@ export function AppRouter() {
         {/* Public Vitrine Routes */}
         <Route element={<Layout />}>
           <Route path="/" element={<HomePage />} />
+          <Route path="/portfolio" element={<PortfolioPage />} />
           <Route path="/mentions-legales" element={<LegalPage />} />
         </Route>
 

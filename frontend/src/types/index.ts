@@ -87,3 +87,12 @@ export interface LeadPayload {
   source: LeadSource
   website?: string
 }
+
+export type PortfolioCategory = 'graphisme' | 'photoshoot' | 'video'
+
+export interface PortfolioItem {
+  id: string
+  title: string
+  category: PortfolioCategory
+  mediaUrl: string // URL d'image pour graphisme/photo, URL de vidéo (FB/YT) pour vidéo
+}

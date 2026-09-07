@@ -1,8 +1,8 @@
 import { useState } from 'react'
-import { Plus, Trash2, Edit2, Save, RefreshCw, CheckCircle, Image, User, Briefcase, Globe, Layers } from 'lucide-react'
-import { useContentStore, type MediathequeItem } from '@/store/useContentStore'
+import { Plus, Trash2, Edit2, Save, RefreshCw, CheckCircle, Image, User, Briefcase, Globe, Layers, Video } from 'lucide-react'
+import { useContentStore } from '@/store/useContentStore'
 import { useAdminStore } from '@/features/admin/useAdminStore'
-import type { Service, TeamMember, Project, Partner } from '@/types'
+import type { Service, TeamMember, Project, Partner, PortfolioItem, PortfolioCategory } from '@/types'
 
 export function CmsEditor() {
   const token = useAdminStore((s) => s.token)
@@ -26,12 +26,12 @@ export function CmsEditor() {
     addPartner,
     updatePartner,
     deletePartner,
-    addMediathequeItem,
-    updateMediathequeItem,
-    deleteMediathequeItem,
+    addPortfolioItem,
+    updatePortfolioItem,
+    deletePortfolioItem,
   } = useContentStore()
 
-  const [activeTab, setActiveTab] = useState<'hero' | 'services' | 'projects' | 'team' | 'partners' | 'mediatheque'>('hero')
+  const [activeTab, setActiveTab] = useState<'hero' | 'services' | 'projects' | 'team' | 'partners' | 'portfolio'>('hero')
   const [saveSuccess, setSaveSaving] = useState(false)
 
   // Editing modals & forms state
@@ -39,7 +39,7 @@ export function CmsEditor() {
   const [editingProject, setEditingProject] = useState<Project | null>(null)
   const [editingTeam, setEditingTeam] = useState<TeamMember | null>(null)
   const [editingPartner, setEditingPartner] = useState<Partner | null>(null)
-  const [editingMedia, setEditingMedia] = useState<MediathequeItem | null>(null)
+  const [editingMedia, setEditingMedia] = useState<PortfolioItem | null>(null)
 
   const handleSaveAll = async () => {
     if (!token) return
@@ -103,7 +103,7 @@ export function CmsEditor() {
           { id: 'projects', label: 'Réalisations', icon: Briefcase },
           { id: 'team', label: 'Équipe', icon: User },
           { id: 'partners', label: 'Partenaires', icon: Image },
-          { id: 'mediatheque', label: 'Médiathèque', icon: Image },
+          { id: 'portfolio', label: 'Portfolio', icon: Video },
         ].map((tab) => {
           const Icon = tab.icon
           return (
@@ -408,31 +408,43 @@ export function CmsEditor() {
         </div>
       )}
 
-      {/* TAB 6: MEDIATHEQUE */}
-      {activeTab === 'mediatheque' && (
+      {/* TAB 6: PORTFOLIO */}
+      {activeTab === 'portfolio' && (
         <div className="space-y-4">
           <div className="flex justify-between items-center">
-            <h3 className="font-display font-bold text-lg text-white">Photos Médiathèque / Terrain ({content.mediatheque.length})</h3>
+            <h3 className="font-display font-bold text-lg text-white">Portfolio ({content.portfolio.length})</h3>
             <button
               onClick={() =>
                 setEditingMedia({
-                  id: `media-${Date.now()}`,
-                  title: 'Nouveau Shoot',
-                  image: '/images/shoot/DSC055453832.jpg.jpeg',
+                  id: `port-${Date.now()}`,
+                  title: 'Nouveau',
+                  category: 'photoshoot',
+                  mediaUrl: '/portfolio/photoshoot/DSC055453832.jpg.jpeg',
                 })
               }
               type="button"
               className="flex items-center gap-2 rounded-btn bg-over-yellow px-4 py-2 text-xs font-bold text-over-night hover:bg-yellow-400"
             >
-              <Plus className="h-4 w-4" /> Ajouter une Photo
+              <Plus className="h-4 w-4" /> Ajouter
             </button>
           </div>
 
           <div className="grid gap-4 grid-cols-2 sm:grid-cols-3 md:grid-cols-4">
-            {content.mediatheque.map((item) => (
+            {content.portfolio.map((item) => (
               <div key={item.id} className="rounded-card bg-over-charcoal/60 p-3 border border-white/10 text-center flex flex-col justify-between">
                 <div>
-                  <img src={item.image} alt={item.title} className="h-28 w-full object-cover rounded-btn bg-black/50 mb-2" />
+                  {item.category === 'video' ? (
+                    <div className="h-28 w-full rounded-btn bg-black/50 mb-2 flex items-center justify-center border border-white/10">
+                      <Video className="h-8 w-8 text-over-muted" />
+                    </div>
+                  ) : (
+                    <img src={item.mediaUrl} alt={item.title} className="h-28 w-full object-cover rounded-btn bg-black/50 mb-2" />
+                  )}
+                  <div className="flex items-center justify-center gap-2 mb-1">
+                    <span className="text-[10px] uppercase font-bold text-over-yellow bg-over-yellow/10 px-1.5 py-0.5 rounded">
+                      {item.category}
+                    </span>
+                  </div>
                   <h4 className="font-display font-bold text-white text-xs line-clamp-1">{item.title}</h4>
                 </div>
                 <div className="flex gap-1 mt-3">
@@ -444,7 +456,7 @@ export function CmsEditor() {
                     Éditer
                   </button>
                   <button
-                    onClick={() => deleteMediathequeItem(item.id)}
+                    onClick={() => deletePortfolioItem(item.id)}
                     type="button"
                     className="rounded bg-rose-500/20 px-2 py-1 text-xs text-rose-300 hover:bg-rose-500/30"
                   >
@@ -640,32 +652,43 @@ export function CmsEditor() {
         </div>
       )}
 
-      {/* EDIT MODAL: MEDIATHEQUE */}
+      {/* EDIT MODAL: PORTFOLIO */}
       {editingMedia && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4">
           <div className="w-full max-w-lg rounded-card bg-over-charcoal p-6 border border-white/10 space-y-4">
-            <h3 className="font-display font-bold text-lg text-white">Éditer la Photo Médiathèque</h3>
+            <h3 className="font-display font-bold text-lg text-white">Éditer l'Élément Portfolio</h3>
+            
+            <select
+              value={editingMedia.category}
+              onChange={(e) => setEditingMedia({ ...editingMedia, category: e.target.value as PortfolioCategory })}
+              className="w-full rounded bg-black/40 border border-white/10 px-3 py-2 text-sm text-white"
+            >
+              <option value="graphisme">Graphisme</option>
+              <option value="photoshoot">Photoshoot</option>
+              <option value="video">Vidéo Shoot</option>
+            </select>
+
             <input
               type="text"
-              placeholder="Titre de la photo"
+              placeholder="Titre de l'élément"
               value={editingMedia.title}
               onChange={(e) => setEditingMedia({ ...editingMedia, title: e.target.value })}
               className="w-full rounded bg-black/40 border border-white/10 px-3 py-2 text-sm text-white"
             />
             <input
               type="text"
-              placeholder="URL de l'image"
-              value={editingMedia.image}
-              onChange={(e) => setEditingMedia({ ...editingMedia, image: e.target.value })}
+              placeholder={editingMedia.category === 'video' ? "URL de la vidéo (iframe embed FB/YT) ou lien direct" : "URL de l'image (/portfolio/...)"}
+              value={editingMedia.mediaUrl}
+              onChange={(e) => setEditingMedia({ ...editingMedia, mediaUrl: e.target.value })}
               className="w-full rounded bg-black/40 border border-white/10 px-3 py-2 text-sm text-white"
             />
             <div className="flex justify-end gap-3 pt-2">
               <button onClick={() => setEditingMedia(null)} className="rounded px-4 py-2 text-xs text-gray-300 bg-white/10">Annuler</button>
               <button
                 onClick={() => {
-                  const exists = content.mediatheque.some((item) => item.id === editingMedia.id)
-                  if (exists) updateMediathequeItem(editingMedia.id, editingMedia)
-                  else addMediathequeItem(editingMedia)
+                  const exists = content.portfolio.some((item) => item.id === editingMedia.id)
+                  if (exists) updatePortfolioItem(editingMedia.id, editingMedia)
+                  else addPortfolioItem(editingMedia)
                   setEditingMedia(null)
                 }}
                 className="rounded px-4 py-2 text-xs font-bold text-over-night bg-over-yellow"

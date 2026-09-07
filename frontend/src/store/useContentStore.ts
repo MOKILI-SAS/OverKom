@@ -4,25 +4,18 @@ import { services as defaultServices } from '@/content/services'
 import { team as defaultTeam } from '@/content/team'
 import { projects as defaultProjects } from '@/content/projects'
 import { partners as defaultPartners } from '@/content/partners'
-import type { Service, TeamMember, Project, Partner } from '@/types'
+import type { Service, TeamMember, Project, Partner, PortfolioItem } from '@/types'
 
 export interface HeroConfig {
   headline: string
   subheadline: string
 }
 
-export interface MediathequeItem {
-  id: string
-  title: string
-  image: string
-}
-
-export const defaultMediatheque: MediathequeItem[] = [
-  { id: 'shoot1', title: 'Tournage Équipe OverKom', image: '/images/shoot/DSC055453832.jpg.jpeg' },
-  { id: 'shoot2', title: 'Production Audiovisuelle Terrain', image: '/images/shoot/DSC055483834.jpg.jpeg' },
-  { id: 'shoot3', title: 'Couverture Événementielle', image: '/images/shoot/DSC055513835.jpg.jpeg' },
-  { id: 'shoot4', title: 'Shooting Studio & Direction Artistique', image: '/images/shoot/DSC02373 copie.jpg.jpeg' },
-  { id: 'shoot5', title: 'Studio Podcast & Micro', image: '/images/shoot/DSC02379.jpg.jpeg' },
+export const defaultPortfolio: PortfolioItem[] = [
+  { id: 'port-1', title: 'Tournage Équipe OverKom', category: 'photoshoot', mediaUrl: '/images/shoot/DSC055453832.jpg.jpeg' },
+  { id: 'port-2', title: 'Production Audiovisuelle', category: 'photoshoot', mediaUrl: '/images/shoot/DSC055483834.jpg.jpeg' },
+  { id: 'port-3', title: 'Affiche BSIC', category: 'graphisme', mediaUrl: '/portfolio/graphisme/BSIC 21.jpg.jpeg' },
+  { id: 'port-4', title: 'Spot Facebook (Exemple)', category: 'video', mediaUrl: 'https://www.facebook.com/plugins/video.php?height=476&href=https%3A%2F%2Fwww.facebook.com%2Fshare%2Fr%2F1cQ7tckg73%2F%3Fmibextid%3DwwXIfr&show_text=false&width=267' },
 ]
 
 export const defaultHero: HeroConfig = {
@@ -37,7 +30,7 @@ export interface CmsContent {
   projects: Project[]
   team: TeamMember[]
   partners: Partner[]
-  mediatheque: MediathequeItem[]
+  portfolio: PortfolioItem[]
 }
 
 interface ContentStoreState {
@@ -73,10 +66,10 @@ interface ContentStoreState {
   updatePartner: (id: string, updates: Partial<Partner>) => void
   deletePartner: (id: string) => void
   
-  // Mediatheque CRUD
-  addMediathequeItem: (item: MediathequeItem) => void
-  updateMediathequeItem: (id: string, updates: Partial<MediathequeItem>) => void
-  deleteMediathequeItem: (id: string) => void
+  // Portfolio CRUD
+  addPortfolioItem: (item: PortfolioItem) => void
+  updatePortfolioItem: (id: string, updates: Partial<PortfolioItem>) => void
+  deletePortfolioItem: (id: string) => void
 }
 
 const LOCAL_STORAGE_KEY = 'overkom_cms_content_v1'
@@ -88,7 +81,7 @@ const initialContent: CmsContent = {
   projects: defaultProjects,
   team: defaultTeam,
   partners: defaultPartners,
-  mediatheque: defaultMediatheque,
+  portfolio: defaultPortfolio,
 }
 
 function loadInitialFromStorage(): CmsContent {
@@ -294,28 +287,28 @@ export const useContentStore = create<ContentStoreState>((set, get) => ({
     }))
   },
 
-  // Mediatheque
-  addMediathequeItem: (item) => {
+  // Portfolio
+  addPortfolioItem: (item) => {
     set((state) => ({
       content: {
         ...state.content,
-        mediatheque: [item, ...state.content.mediatheque],
+        portfolio: [item, ...state.content.portfolio],
       },
     }))
   },
-  updateMediathequeItem: (id, updates) => {
+  updatePortfolioItem: (id, updates) => {
     set((state) => ({
       content: {
         ...state.content,
-        mediatheque: state.content.mediatheque.map((item) => (item.id === id ? { ...item, ...updates } : item)),
+        portfolio: state.content.portfolio.map((item) => (item.id === id ? { ...item, ...updates } : item)),
       },
     }))
   },
-  deleteMediathequeItem: (id) => {
+  deletePortfolioItem: (id) => {
     set((state) => ({
       content: {
         ...state.content,
-        mediatheque: state.content.mediatheque.filter((item) => item.id !== id),
+        portfolio: state.content.portfolio.filter((item) => item.id !== id),
       },
     }))
   },
